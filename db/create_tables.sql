@@ -1,3 +1,4 @@
+
 CREATE TABLE products (
 		"id"			integer 		PRIMARY KEY GENERATED ALWAYS AS IDENTITY
 		,"name"		 	varchar(128)	NOT NULL
@@ -27,20 +28,32 @@ CREATE TABLE vitamers (
 
 
 CREATE TABLE vitamin_vitamer(
-		vitamer_id		smallint		REFERENCES vitamers("id")
+		vitamer_id		smallint		REFERENCES vitamers("id") 
+												ON DELETE CASCADE 
+												DEFERRABLE INITIALLY IMMEDIATE
 		,vitamin_id		smallint		REFERENCES vitamins("id")
+												ON DELETE CASCADE 
+												DEFERRABLE INITIALLY IMMEDIATE
 		,PRIMARY KEY(vitamer_id, vitamin_id)
 );
 
 CREATE TABLE product_vitamer(
-		product_id		integer			REFERENCES products("id")
-		,vitamer_id		smallint		REFERENCES vitamers("id")
+		product_id		integer			REFERENCES products("id") 
+												ON DELETE CASCADE 
+												DEFERRABLE INITIALLY IMMEDIATE
+		,vitamer_id		smallint		REFERENCES vitamers("id") 
+												ON DELETE CASCADE 
+												DEFERRABLE INITIALLY IMMEDIATE
 		,PRIMARY KEY(product_id, vitamer_id)
 ); 
 
 CREATE TABLE product_category(
-		product_id		integer			REFERENCES products("id")
-		,category_id	integer			REFERENCES categories("id")
+		product_id		integer			REFERENCES products("id") 
+												ON DELETE CASCADE 
+												DEFERRABLE INITIALLY IMMEDIATE
+		,category_id	integer			REFERENCES categories("id") 
+												ON DELETE CASCADE 
+												DEFERRABLE INITIALLY IMMEDIATE
 		,PRIMARY KEY(product_id, category_id)
 ); 
 
