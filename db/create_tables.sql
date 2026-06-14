@@ -1,29 +1,28 @@
 CREATE TABLE products (
 		"id"			integer 		PRIMARY KEY GENERATED ALWAYS AS IDENTITY
-		,"name"		 	varchar(128)
-		,variety		varchar(128)
-		,protein 	 	smallint		DEFAULT 0
-		,fat 		 	smallint		DEFAULT 0
-		,carbohydrates	smallint		DEFAULT 0
+		,"name"		 	varchar(128)	NOT NULL
+		,variety		varchar(128)	DEFAULT ''
+		,protein 	 	numeric(5, 2)	NOT NULL DEFAULT 0.00	CHECK protein >= 0.00
+		,fat 		 	numeric(5, 2)	NOT NULL DEFAULT 0.00	CHECK fat >= 0.00
+		,carbohydrates	numeric(5, 2)	NOT NULL DEFAULT 0.00	CHECK carbohydrates >= 0.00
 		,UNIQUE("name", variety)
 );
 
 CREATE TABLE categories (
 		"id"			smallint 		PRIMARY KEY GENERATED ALWAYS AS IDENTITY
-		,"name"			varchar(16)
+		,"name"			varchar(16)		UNIQUE NOT NULL
 );
 
 CREATE TABLE vitamins (
 		"id"			smallint		PRIMARY KEY GENERATED ALWAYS AS IDENTITY
-		,"name"			varchar(4)
-		,recommended	numeric
-		--,per			interval
+		,"name"			varchar(4)		UNIQUE NOT NULL
+		,recommended	numeric(5, 2)	NOT NULL DEFAULT 0.00 CHECK recommended > 0.00
 );
 
 CREATE TABLE vitamers (
 		"id" 			smallint 		PRIMARY KEY GENERATED ALWAYS AS IDENTITY
-		,"name"			varchar(64)
-		,recommended	numeric
+		,"name"			varchar(64)		NOT NULL
+		,recommended	numeric			NOT NULL DEFAULT 0.00 CHECK recommended > 0.00
 );
 
 
