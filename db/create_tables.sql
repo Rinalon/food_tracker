@@ -2,9 +2,9 @@ CREATE TABLE products (
 		"id"			integer 		PRIMARY KEY GENERATED ALWAYS AS IDENTITY
 		,"name"		 	varchar(128)	NOT NULL
 		,variety		varchar(128)	DEFAULT ''
-		,protein 	 	numeric(5, 2)	NOT NULL DEFAULT 0.00	CHECK protein >= 0.00
-		,fat 		 	numeric(5, 2)	NOT NULL DEFAULT 0.00	CHECK fat >= 0.00
-		,carbohydrates	numeric(5, 2)	NOT NULL DEFAULT 0.00	CHECK carbohydrates >= 0.00
+		,protein 	 	numeric(5, 2)	NOT NULL CHECK (protein >= 0.00)			DEFAULT 0.00
+		,fat 		 	numeric(5, 2)	NOT NULL CHECK (fat >= 0.00) 				DEFAULT 0.00	
+		,carbohydrates	numeric(5, 2)	NOT NULL CHECK (carbohydrates >= 0.00) 		DEFAULT 0.00
 		,UNIQUE("name", variety)
 );
 
@@ -16,13 +16,13 @@ CREATE TABLE categories (
 CREATE TABLE vitamins (
 		"id"			smallint		PRIMARY KEY GENERATED ALWAYS AS IDENTITY
 		,"name"			varchar(4)		UNIQUE NOT NULL
-		,recommended	numeric(5, 2)	NOT NULL DEFAULT 0.00 CHECK recommended > 0.00
+		,recommended	numeric(5, 2)	NOT NULL CHECK (recommended > 0.00) 		DEFAULT 0.00
 );
 
 CREATE TABLE vitamers (
 		"id" 			smallint 		PRIMARY KEY GENERATED ALWAYS AS IDENTITY
 		,"name"			varchar(64)		NOT NULL
-		,recommended	numeric			NOT NULL DEFAULT 0.00 CHECK recommended > 0.00
+		,recommended	numeric			NOT NULL CHECK (recommended > 0.00)			DEFAULT 0.00 
 );
 
 
@@ -34,7 +34,7 @@ CREATE TABLE vitamin_vitamer(
 
 CREATE TABLE product_vitamer(
 		product_id		integer			REFERENCES products("id")
-		,vitamer_id		smallint		REFERENCES vitamers"id")
+		,vitamer_id		smallint		REFERENCES vitamers("id")
 		,PRIMARY KEY(product_id, vitamer_id)
 ); 
 
