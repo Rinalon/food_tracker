@@ -10,5 +10,6 @@ CREATE TABLE users.users(
 		,sex			char(1)			NOT NULL CHECK (sex IN ('M', 'F'))
 		,pregnant		smallint		CHECK ((pregnant BETWEEN 0 AND 3) AND sex = 'F') DEFAULT 0
 												-- 0 - not, 1 - 1st trimester, 2 - 2nd trimester, 3 - 3rd trimester
-		,is_lactating	bool			DEFAULT FALSE			
+		,is_lactating	bool			DEFAULT FALSE
+		,family_group	integer			
 );
